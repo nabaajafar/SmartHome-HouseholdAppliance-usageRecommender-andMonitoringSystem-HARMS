@@ -1,0 +1,55 @@
+#include <Wire.h>
+
+#define SLAVE_ADDRESS 7
+
+#include "EmonLib.h"                   // Include Emon Library
+EnergyMonitor emon1;
+
+// 10 byte data buffer
+uint8_t keepCounted = 0;
+double Current = 0;
+
+
+// Use the offset value to select a function
+void sendData() {
+  if (keepCounted > 10) {
+    keepCounted = 0;
+    double Irms = emon1.calcIrms(1480);  // Calculate Irms only
+    Current = Irms;
+  } else {
+    keepCounted++;
+    Serial.println(Current);
+    writeData(Current);
+  }
+}
+
+
+// Write data
+void writeData(double newData) {
+  int i = 0;
+  String outString = String(newData); /* convert integer to string */
+  int len = outString.length() + 1;   /* obtain length of string w/ terminator */
+  char ascii_num[len];               /* create character array */
+  outString.toCharArray(ascii_num, len); /* copy string to character array */
+  for (i = 0; i < len; ++i) {
+    Wire.write(ascii_num[i]);
+  }
+}
+
+
+
+
+void setup() {
+  Serial.begin(9600); // start serial for output
+  Wire.begin(SLAVE_ADDRESS);
+  Wire.onRequest(sendData);
+  Serial.println("I2C Ready!");
+
+  emon1.current(5, 111.1);
+}
+
+
+void loop() {
+
+  delay(100);
+}
