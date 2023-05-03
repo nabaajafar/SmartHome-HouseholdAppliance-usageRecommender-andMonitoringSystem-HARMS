@@ -28,3 +28,7 @@ Thus, it will utilize electricity efficiently and not be consumed at unnecessary
 User awareness of the devices used, and the average power consumed weekly would drive to cut down the high electricity cost and optimize the energy efficiency.
 It is expected from the system to reduce the energy consumption by real-time monitoring and controlling different devices automatically.
 That will lead to reducing the monthly electricity bill for the customer.
+
+
+
+https://drive.google.com/drive/folders/1vkLabu6oQPpNqG0oMITVfVaQ8zAiJJwm?usp=sharing
